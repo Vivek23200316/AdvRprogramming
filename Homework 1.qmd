@@ -58,3 +58,14 @@ ggplot(max_year_data, aes(x = month, y = passengers)) +
 The histogram displays the monthly passenger counts for the year 1960, which recorded the highest total number of air passengers. The chart also highlights clear seasonal trends, with the summer months of June, July, and August showing significantly higher passenger numbers compared to other months. This peak in the middle of the year likely corresponds to the holiday travel season or summer specifically. For instance, July had an approximate count of 600+ passengers, the highest for the year, reflecting the peak travel season.
 
 Conversely, the months of January, February, and November show relatively lower passenger counts, with November showing the least with passengers less than 400, the lowest in the year. This pattern is typical as fewer people travel during the winter months, Overall, the histogram effectively illustrates the cyclical nature of air travel demand.
+
+```{r}
+
+# Also find the year and month with the least number of passengers
+min_passengers <- df %>%
+  filter(passengers == min(passengers)) %>%
+  slice(1)
+
+# Print the result
+print(min_passengers)
+```
