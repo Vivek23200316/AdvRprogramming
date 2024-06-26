@@ -1,0 +1,60 @@
+---
+title: "Homework 1 Adv. Data Programming in R"
+author: "Venkata Vivek Mudunuru 23200316"
+format: html
+editor: visual
+---
+
+# Dataset - AirPassengers
+
+```{r}
+#Working on the dataset of the passengers for flight from the year 1949 to 1960 
+dts = (AirPassengers)
+```
+
+# Maximum Number of Flights and Plot
+
+```{r}
+# Plotting the histogram to understand the trend in which month 
+# and which year were the highest number of passengers was observed
+# Load necessary packages
+library(dplyr)
+library(ggplot2)
+
+#Since it is a time series data we need to convert into a dataframe
+
+df <- data.frame(
+  year = rep(1949:1960, each = 12), #for all the years mentioned
+  month = rep(1:12, times = 12), #and the months for that year
+  passengers = as.numeric(dts) 
+)
+
+annual_passengers <- df %>% #Now grouping them in annually based on year
+  group_by(year) %>%
+  summarise(total_passengers = sum(passengers)) #and finding the sum of this accordingly
+
+# Printing the annual passengers data frame
+print(annual_passengers)
+```
+
+```{r}
+# As observed, now filtering the data for the year with the highest total passengers
+max_year <- 1960
+max_year_data <- df %>% filter(year == max_year)
+# Converting the month numbers to month names in the max_year_data data frame
+max_year_data$month <- factor(max_year_data$month, levels = 1:12, labels = month.name)
+
+# Accordingly creating a histogram of the monthly passenger counts for the year with the highest total
+ggplot(max_year_data, aes(x = month, y = passengers)) +
+  geom_col(fill = "lightblue", color = "black") +
+  labs(title = paste("Monthly Passengers in the Year with the Highest Total (", max_year, ")", sep = ""),
+       x = "Month",
+       y = "Number of Passengers") +
+  theme_minimal()
+```
+
+# Summary:
+
+The histogram displays the monthly passenger counts for the year 1960, which recorded the highest total number of air passengers. The chart also highlights clear seasonal trends, with the summer months of June, July, and August showing significantly higher passenger numbers compared to other months. This peak in the middle of the year likely corresponds to the holiday travel season or summer specifically. For instance, July had an approximate count of 600+ passengers, the highest for the year, reflecting the peak travel season.
+
+Conversely, the months of January, February, and November show relatively lower passenger counts, with November showing the least with passengers less than 400, the lowest in the year. This pattern is typical as fewer people travel during the winter months, Overall, the histogram effectively illustrates the cyclical nature of air travel demand.
