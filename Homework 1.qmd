@@ -38,6 +38,10 @@ print(annual_passengers)
 ```
 
 ```{r}
+# Printing the type of dataset from timeseries to dataframe
+typeof(dts)
+typeof(df)
+
 # As observed, now filtering the data for the year with the highest total passengers
 max_year <- 1960
 max_year_data <- df %>% filter(year == max_year)
